@@ -1,0 +1,11 @@
+import java.util.*;
+class java {
+    public static void main(String[] args) {
+        int[] arr = {12, 3, 2, 1, 5};
+        int n = 5;
+        Arrays.sort(arr);
+        System.out.println(arr[n - 1]);
+        System.out.println(arr[n - 2]);
+
+    }
+}
