@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dream Analyzer</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #c9d6ff, #e2e2e2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    textarea {
+      width: 80%;
+      height: 100px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #aaa;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #4e54c8;
+      color: white;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      width: 80%;
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      font-style: italic;
+    }
+    .tip {
+      font-size: 14px;
+      color: #555;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌙 Dream Analyzer</h1>
+  <textarea id="dreamInput" placeholder="Describe your dream here..."></textarea><br/>
+  <button onclick="analyzeDream()">Analyze Dream</button>
+  <div class="tip">✨ Try using words like: love, fire, rope, pain, crying, smile, tired, etc.</div>
+  <div id="result"></div>
+
+  <script>
+    async function analyzeDream() {
+      const dreamText = document.getElementById("dreamInput").value.trim();
+      const resultBox = document.getElementById("result");
+
+      if (!dreamText) {
+        resultBox.innerHTML = "Please enter your dream description.";
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:3000/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ dream: dreamText })
+        });
+
+        const data = await response.json();
+        resultBox.innerHTML = `<strong>Analysis:</strong> ${data.analysis}`;
+      } catch (err) {
+        resultBox.innerHTML = "Oops! Couldn't connect to the dream server.";
+        console.error(err);
+      }
+    }
+  </script>
+</body>
+</html>
+
+combine these with that perfectly to run
